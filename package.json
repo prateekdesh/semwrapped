@@ -1,0 +1,23 @@
+{
+  "name": "semwrapped",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run build:ui && tsx src/server.ts",
+    "build:ui": "tsc -p tsconfig.frontend.json",
+    "build": "npm run build:ui && tsc",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.frontend.json --noEmit",
+    "deploy": "npm run build:ui && wrangler pages deploy public --project-name=semwrapped"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

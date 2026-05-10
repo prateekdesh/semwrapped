@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>SemWrapped</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ─── Login Screen ──────────────────────────────── -->
+    <div id="login-screen" class="screen active">
+      <div class="login-wrap">
+        <div class="login-header">
+          <div class="login-logo">
+            <span class="logo-text">sem</span><span class="logo-accent">wrapped</span>
+          </div>
+          <p class="login-tagline">your semester, dramatized.</p>
+        </div>
+
+        <form id="login-form" autocomplete="off" class="login-form">
+
+          <!-- Step 1: credentials -->
+          <div id="step-credentials" class="field-group">
+            <div class="input-field">
+              <label class="field-label" for="username">Net ID</label>
+              <input type="text" id="username" placeholder="e.g. pd0530"
+                autocomplete="off" spellcheck="false" autocapitalize="characters">
+            </div>
+
+            <div class="portal-divider"><span>Portal Passwords</span></div>
+
+            <div class="input-field">
+              <label class="field-label" for="password">SRM Portal</label>
+              <input type="password" id="password" placeholder="student portal password" autocomplete="current-password">
+            </div>
+            <div class="input-field">
+              <label class="field-label" for="password2">Academia Portal</label>
+              <input type="password" id="password2" placeholder="academia password" autocomplete="current-password">
+            </div>
+
+            <button type="submit" id="start-btn" class="btn-primary">
+              <span class="btn-label">Get My Wrapped</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+
+          <!-- Step 2: captcha -->
+          <div id="step-captcha" class="field-group hidden">
+            <p class="captcha-hint">One last step — solve the CAPTCHA from the SRM portal.</p>
+            <div class="captcha-row">
+              <img id="captcha-img" src="" alt="CAPTCHA" class="captcha-img">
+              <button type="button" id="refresh-captcha" class="btn-icon" title="Refresh CAPTCHA">↻</button>
+            </div>
+            <div class="input-field">
+              <label class="field-label" for="captcha">CAPTCHA</label>
+              <input type="text" id="captcha" placeholder="Type what you see"
+                autocomplete="off" spellcheck="false">
+            </div>
+            <button type="submit" id="verify-btn" class="btn-primary">
+              <span class="btn-label">Reveal My Semester</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+
+        </form>
+
+        <div id="login-error" class="error-msg hidden"></div>
+      </div>
+    </div>
+
+    <!-- ─── Loading Screen ───────────────────────────── -->
+    <div id="loading-screen" class="screen hidden">
+      <div class="loader-wrap">
+        <div class="loader-track">
+          <div class="loader-fill" id="loader-progress"></div>
+        </div>
+        <p class="loader-msg" id="loader-msg">Logging in…</p>
+      </div>
+    </div>
+
+    <!-- ─── Stories Screen ───────────────────────────── -->
+    <div id="stories-screen" class="screen hidden">
+      <!-- Progress segments -->
+      <div class="prog-bar" id="progress-bars"></div>
+
+      <!-- Slides -->
+      <div class="slides-wrap" id="slides-container"></div>
+
+      <!-- Navigation zones (tap left/right) -->
+      <div class="nav-zone nav-prev" id="nav-prev"></div>
+      <div class="nav-zone nav-next" id="nav-next"></div>
+
+      <!-- Music toggle -->
+      <button class="mute-btn" id="mute-btn" title="Toggle music">♪</button>
+    </div>
+
+  </div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
