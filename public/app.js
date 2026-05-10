@@ -939,11 +939,11 @@ async function handleStep2(e) {
             show('login-screen');
             if (res.status === 401) {
                 showError('Wrong credentials or CAPTCHA. Try again.');
-                await refreshCaptcha();
             }
             else {
-                showError(body.error ?? 'Something went wrong. Try again.');
+                showError((body.error ?? 'Something went wrong.') + ' Please try again — it usually works on a second attempt.');
             }
+            await refreshCaptcha();
             return;
         }
         studentData = body;
