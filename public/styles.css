@@ -234,6 +234,14 @@ input[type="password"]:focus {
 }
 .error-msg.hidden { display: none; }
 
+.privacy-note {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.28);
+  text-align: center;
+  line-height: 1.5;
+  padding: 0 0.5rem;
+}
+
 /* ─── Loading ────────────────────────────────────────────────────────────── */
 
 #loading-screen { background: #0a0a0a; }
