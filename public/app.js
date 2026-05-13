@@ -838,6 +838,9 @@ function hookSlideButtons() {
         currentSlide = 0;
         isAnimating = false;
         navListenersAttached = false;
+        pendingSessionId = '';
+        pendingUsername = '';
+        pendingPassword = '';
         pendingPassword2 = '';
         show('login-screen');
         const form = $('login-form');
@@ -928,7 +931,7 @@ async function handleStep2(e) {
     btn.disabled = true;
     startLoader();
     try {
-        const res = await fetch('/api/auth/complete', {
+        const res = await fetch('/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ sessionId: pendingSessionId, username: pendingUsername, password: pendingPassword, password2: pendingPassword2, captcha }),
@@ -937,12 +940,9 @@ async function handleStep2(e) {
         if (!res.ok || body.error) {
             finishLoader();
             show('login-screen');
-            if (res.status === 401) {
-                showError('Wrong credentials or CAPTCHA. Try again.');
-            }
-            else {
-                showError((body.error ?? 'Something went wrong.') + ' Please try again — it usually works on a second attempt.');
-            }
+            showError(res.status === 401
+                ? 'Wrong credentials or CAPTCHA. Try again.'
+                : (body.error ?? 'Something went wrong.') + ' Please try again.');
             await refreshCaptcha();
             return;
         }
@@ -979,8 +979,7 @@ async function refreshCaptcha() {
 // ─── Bootstrap ────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     $('login-form').addEventListener('submit', (e) => {
-        const captchaStep = $('step-captcha');
-        if (captchaStep.classList.contains('hidden')) {
+        if ($('step-captcha').classList.contains('hidden')) {
             handleStep1(e);
         }
         else {

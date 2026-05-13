@@ -5,24 +5,21 @@
 
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
-import { startLogin, completeLogin, fetchAll } from './index.js';
+import { startLogin, login, fetchAll } from './index.js';
 
 const rl = readline.createInterface({ input, output });
 
-console.log('Starting login flow...');
-const session = await startLogin();
-
-console.log('\nCAPTCHA image (base64 data URI):');
-console.log(session.captchaImage.slice(0, 80) + '...');
-console.log('\nPaste the base64 into a browser or image viewer to read it.\n');
-
 const username = await rl.question('NetID (without @srmist.edu.in): ');
 const password = await rl.question('Password: ');
-const captcha = await rl.question('CAPTCHA answer: ');
+const captcha  = await rl.question('CAPTCHA (check terminal for base64 image): ');
 rl.close();
 
+console.log('\nStarting login...');
+const session = await startLogin();
+console.log('\nCAPTCHA image (base64 data URI):\n' + session.captchaImage.slice(0, 80) + '...');
+
 console.log('\nLogging in...');
-const jar = await completeLogin(session, username, password, captcha);
+const jar = await login(session, username, password, captcha);
 console.log('Logged in successfully.\n');
 
 console.log('Fetching all data (parallel)...');

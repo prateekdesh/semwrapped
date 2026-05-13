@@ -3,18 +3,15 @@
  *
  * Typical usage:
  *
- *   import { startLogin, completeLogin, fetchAll } from './index.js';
+ *   import { login, fetchAll } from './index.js';
  *
- *   const session = await startLogin();
- *   // session.captchaImage is a base64 data URI — show it to the user
- *   console.log('Solve the CAPTCHA:', session.captchaImage);
- *
- *   const jar = await completeLogin(session, 'PD0530', 'password', 'captchaAnswer');
+ *   const jar = await login('PD0530', 'password');
  *   const data = await fetchAll(jar);
  *   console.log(data);
  */
 
-export { startLogin, completeLogin } from './auth.js';
+export { startLogin, login } from './auth.js';
+export type { LoginSession } from './auth.js';
 export {
   fetchProfile,
   fetchCourses,
@@ -35,6 +32,5 @@ export type {
   AcademicRecord,
   ExamEntry,
   StudentData,
-  LoginSession,
   AttendanceCourse,
 } from './types.js';

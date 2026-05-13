@@ -71,15 +71,6 @@ export interface StudentData {
   attendance: AttendanceCourse[];
 }
 
-export interface LoginSession {
-  jar: import('./client.js').CookieJar;
-  fpNonce: string;
-  challengeId: string;
-  fpToken: string;
-  captchaFpToken: string;
-  captchaImage: string;
-}
-
 export interface AttendanceCourse {
   courseCode: string;
   courseType: string;   // e.g. "Regular"
